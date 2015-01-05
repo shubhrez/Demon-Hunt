@@ -64,17 +64,21 @@ public class Sprite {
         if (x >= gameView.getWidth() - width  || x  <= 0) {
             xSpeed = -xSpeed;
         }
+  //      x = x + xSpeed;
         x = x + speedfactor*7*xSpeed/10;
         if (y >= gameView.getHeight() - height - 300 || y  <= 80) {
             ySpeed = -ySpeed;
         }
+ //       y = y + ySpeed;
         y = y + speedfactor*7*ySpeed/10;
         currentFrame = ++currentFrame % BMP_COLUMNS;
     }
 
-    public void onDraw(Canvas canvas,int level) {
+//    public void onDraw(Canvas canvas) {
+        public void onDraw(Canvas canvas,int level) {
         int a = level;
         update(a);
+    //    update();
         int srcX = currentFrame * width;
         int srcY = getAnimationRow() * height;
         Rect src = new Rect(srcX, srcY, srcX + width, srcY + height);

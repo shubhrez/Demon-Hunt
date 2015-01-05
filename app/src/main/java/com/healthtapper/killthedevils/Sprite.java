@@ -60,11 +60,11 @@ public class Sprite {
         if (x >= gameView.getWidth() - width  || x  <= 0) {
             xSpeed = -xSpeed;
         }
-        x = x + speedfactor*7*xSpeed/10;
+        x = x + speedfactor*5*xSpeed/11;
         if (y >= gameView.getHeight() - height - 300 || y  <= 80) {
             ySpeed = -ySpeed;
         }
-        y = y + speedfactor*6*ySpeed/10;
+        y = y + speedfactor*5*ySpeed/11;
         currentFrame = ++currentFrame % BMP_COLUMNS;
     }
 

@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -65,7 +66,7 @@ public class GameView extends SurfaceView implements Runnable {
         font = Typeface.createFromAsset(context.getAssets(),"Toxia_FRE.ttf");
         bmpBlood = BitmapFactory.decodeResource(getResources(), R.drawable.blood1);
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        sndmale = sounds.load(context,R.raw.screamfemale,1);
+        sndmale = sounds.load(context,R.raw.screammale,1);
         sndfemale = sounds.load(context,R.raw.screammale,1);
 
         createMaleSprites();
@@ -189,19 +190,20 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawBitmap(life, 5, 20, null);
         }
         if(gameover <= 2) {
-            canvas.drawBitmap(life, 37, 20, null);
+            canvas.drawBitmap(life, 35, 20, null);
         }
         if(gameover <= 1) {
-            canvas.drawBitmap(life, 69, 20, null);
+            canvas.drawBitmap(life, 65, 20, null);
         }
         if(gameover <= 0) {
-            canvas.drawBitmap(life, 102, 20, null);
+            canvas.drawBitmap(life, 95, 20, null);
         }
 
 
         canvas.drawBitmap(fireballCover, getWidth() / 2 - fireballCover.getWidth() / 2, getHeight() - 100, null);
 
         String scoretext = String.valueOf(score);
+        textpaint.setTextSize(48);
         canvas.drawText(new StringBuilder().append("Score : ").append(scoretext).toString(), getWidth() / 2, 50, textpaint);
 
         synchronized (getHolder()) {
@@ -449,6 +451,11 @@ public class GameView extends SurfaceView implements Runnable {
     public void gameoverActivity(){
         Context context = getContext();
         Intent intent = new Intent("com.healthtapper.GAMEOVER");
+        Bundle bundle = new Bundle();
+//Add your data from getFactualResults method to bundle
+        bundle.putInt("SCORE", score);
+//Add the bundle to the intent
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

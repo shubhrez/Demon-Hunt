@@ -14,8 +14,14 @@
 
 
 <TextView
-    android:layout_width="fill_parent"
+    android:id="@+id/score"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:textSize="50dp"
+    android:text="score"
+    android:textColor="#E09D00"
+    android:layout_gravity="center"
+    android:gravity="center_vertical"
     android:layout_weight="30"/>
 
     <ImageView

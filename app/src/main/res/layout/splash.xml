@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E09D00" >
+
+
+
+    <com.inmobi.monetization.IMBanner
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:id="@+id/banner"
+        android:layout_gravity="center"
+        adSize="15" appId="d37f4bc09bec4ca48cbcc6ae3afaa0ab" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="17"
+        android:text="Demon Hunt"
+        android:textSize="50dp"
+        android:gravity="bottom"
+        android:paddingBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#913805"
+        />
+
+        <ImageView
+            android:id="@+id/devil"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:layout_weight="18"
+            />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"
+        />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="150dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:layout_weight="10"
+        android:text="Start"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="italic"
+        android:background="@drawable/rounded_corner_button"
+        android:textSize="30dp"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        />
+
+    <Button
+        android:id="@+id/instructions"
+        android:layout_width="200dp"
+        android:layout_height="23dp"
+        android:text="Instructions"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="italic"
+        android:layout_weight="10"
+        android:textSize="24dp"
+        android:background="@drawable/rounded_corner_button"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/highestscore"
+        android:text="Highest Score"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="15"
+        android:textColor="#913805"
+        />
+
+</LinearLayout>

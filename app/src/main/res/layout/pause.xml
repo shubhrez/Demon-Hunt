@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.inmobi.monetization.IMBanner
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:id="@+id/banner"
+        android:layout_gravity="center"
+        adSize="15" appId="d37f4bc09bec4ca48cbcc6ae3afaa0ab" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"/>
+
+    <ImageView
+        android:id="@+id/devil"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_weight="10"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="25"/>
+
+
+    <Button
+        android:id="@+id/resumeButton"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_weight="10"
+        android:layout_gravity="center"
+        android:text="Resume"
+
+        android:textSize="27dp"
+        android:background="@drawable/rounded_corner_button"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="30"/>
+</LinearLayout>

@@ -31,21 +31,17 @@ public class Sprite {
         this.bmp = bmp;
 
         Random rnd = new Random();
-       // x = rnd.nextInt(gameView.getWidth() - width);
-        //    y = rnd.nextInt(gameView.getHeight() - height);
-      //  y = rnd.nextInt(gameView.getHeight() - 320);
-        x = rnd.nextInt(300);
-        y = rnd.nextInt(300) + 80;
-     //   if(y > gameView.getHeight() - 340 || y <100)
-       //     y = gameView.getHeight()/2;
-        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -4))/2;
-        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -4))/2;
-//        xSpeed = 2;
-//        ySpeed = 2;
+        x = rnd.nextInt(350) + 1;
+        y = rnd.nextInt(299) + 80;
+        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))/2 + 1;
+        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))/2 + 1;
+        if(ySpeed == 0) {
+            ySpeed = 5;
+        }
 
-        if(ySpeed == 0)
-            ySpeed = 5 ;
-
+        if(xSpeed == 0) {
+            xSpeed = 5;
+        }
     }
 
 //    private void update() {
@@ -64,21 +60,18 @@ public class Sprite {
         if (x >= gameView.getWidth() - width  || x  <= 0) {
             xSpeed = -xSpeed;
         }
-  //      x = x + xSpeed;
         x = x + speedfactor*7*xSpeed/10;
         if (y >= gameView.getHeight() - height - 300 || y  <= 80) {
             ySpeed = -ySpeed;
         }
- //       y = y + ySpeed;
-        y = y + speedfactor*7*ySpeed/10;
+        y = y + speedfactor*6*ySpeed/10;
         currentFrame = ++currentFrame % BMP_COLUMNS;
     }
 
-//    public void onDraw(Canvas canvas) {
+
         public void onDraw(Canvas canvas,int level) {
         int a = level;
         update(a);
-    //    update();
         int srcX = currentFrame * width;
         int srcY = getAnimationRow() * height;
         Rect src = new Rect(srcX, srcY, srcX + width, srcY + height);
@@ -94,7 +87,5 @@ public class Sprite {
 
     public boolean isCollision(float x2, float y2) {
         return x2 > x  && x2 < x + width  && y2 > y  && y2 < y + height ;
-//        return x2 > x - 2  && x2 < x + width + 2  && y2 > y - 3
-//                && y2 < y + height + 3 ;
     }
 }

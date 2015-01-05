@@ -35,15 +35,11 @@ public class GameView extends SurfaceView implements Runnable {
     private SoundPool sounds;
     private int sndmale;
     private int sndfemale;
-    //    private int msprite = 6;
     int score =  0;
-    //  int changingY;
     float pauseX,pauseY;
     float x,y,sX,sY,fX,fY,dx,dy,animx,animy;
     int gameover = 0;
-    // boolean fireballDestroy = false;
- //   boolean paused = false;
-    private Bitmap pause,resume,tower,life;
+    private Bitmap pause,tower,life;
     public static final String HIGHESTSCORE = "highestscore";
     boolean running =  false ;
     SurfaceHolder holder;
@@ -55,6 +51,7 @@ public class GameView extends SurfaceView implements Runnable {
     public int l3=3;
     public int l4=4;
     public int l5=5;
+    public int leveldisplaylife = 40;
 
     public GameView(Context context) {
         super(context);
@@ -62,16 +59,14 @@ public class GameView extends SurfaceView implements Runnable {
         fireball = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         fireballCover = BitmapFactory.decodeResource(getResources(), R.drawable.fireballcover);
         pause = BitmapFactory.decodeResource(getResources(), R.drawable.pause);
-    //    resume = BitmapFactory.decodeResource(getResources(), R.drawable.resume);
         tower = BitmapFactory.decodeResource(getResources(), R.drawable.tower);
         life = BitmapFactory.decodeResource(getResources(), R.drawable.heart);
-        //      changingY = getHeight()-50;
         x = y = sX = sY = fX = fY = 0 ;
         font = Typeface.createFromAsset(context.getAssets(),"Toxia_FRE.ttf");
         bmpBlood = BitmapFactory.decodeResource(getResources(), R.drawable.blood1);
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        sndmale = sounds.load(context,R.raw.screammale,1);
-        sndfemale = sounds.load(context,R.raw.screamfemale,1);
+        sndmale = sounds.load(context,R.raw.screamfemale,1);
+        sndfemale = sounds.load(context,R.raw.screammale,1);
 
         createMaleSprites();
         createFemaleSprites();
@@ -89,8 +84,6 @@ public class GameView extends SurfaceView implements Runnable {
         sprites.add(createSprite(R.drawable.bad1));
         sprites.add(createSprite(R.drawable.bad1));
         sprites.add(createSprite(R.drawable.bad1));
-//        sprites.add(createSprite(R.drawable.bad1));
-//        sprites.add(createSprite(R.drawable.bad1));
     }
 
     private void createFemaleSprites(){
@@ -141,15 +134,6 @@ public class GameView extends SurfaceView implements Runnable {
         fortRect.set(0, getHeight() - 10, getWidth(), getHeight());
         canvas.drawRect(fortRect, ourFort);
 
-//        Rect fortRect1 = new Rect();
-//        fortRect1.set(getWidth()/4 - 50,getHeight() - 25, getWidth()/4 + 50, getHeight()-20);
-//        canvas.drawRect(fortRect1, ourFort);
-//
-//        Rect fortRect2 = new Rect();
-//        fortRect2.set(3*getWidth()/4 - 50,getHeight() - 25,3* getWidth()/4 + 50, getHeight()-20);
-//        canvas.drawRect(fortRect2, ourFort);
-
-
         Rect playRect = new Rect();
         Paint ourPlay = new Paint();
         //   ourBlue.setColor(Color.BLUE);
@@ -173,7 +157,6 @@ public class GameView extends SurfaceView implements Runnable {
         //    textpaint.setTypeface(font);
 
         Paint textpaint1 = new Paint();
-//        textpaint1.setColor(Color.WHITE);
         textpaint1.setTypeface(font);
         textpaint1.setARGB(100,255,255,255);
         textpaint1.setTextAlign(Paint.Align.CENTER);
@@ -198,29 +181,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         canvas.drawBitmap(tower, 0, getHeight() - 80, null);
         canvas.drawBitmap(tower, getWidth()  - tower.getWidth(), getHeight() - 80, null);
-//        if(gameover <= 3) {
-//            canvas.drawBitmap(life, getWidth() / 4 - 50, getHeight() - 45, null);
-//        }
-//        if(gameover <= 2) {
-//            canvas.drawBitmap(life, getWidth() / 4 + 24, getHeight() - 45, null);
-//        }
-//        if(gameover <= 1) {
-//            canvas.drawBitmap(life, (3 * (getWidth() / 4)) - 50 - 5, getHeight() - 45, null);
-//        }
-//        if(gameover <= 0) {
-//            canvas.drawBitmap(life, (3 * (getWidth() / 4)) + 24 - 5, getHeight() - 45, null);
-//        }
 
-//        if (fX != 0 && fY != 0) {
-//
-//            //         canvas.drawBitmap(fireball, getWidth() / 2 - fireball.getWidth() / 2 + animx, getHeight() - 60 + animy, null);
-//            for (FireBallSprite sprite : fireballsprites) {
-//                sprite.onDraw(canvas,getWidth()/2 - fireball.getWidth()/2 + animx,getHeight() - 60 + animy);
-//            }
-//            // }
-//            animx = animx + dx /7;
-//            animy = animy + dy /7;
-//        }
 
         canvas.drawRect(topRect, ourGreen);
 
@@ -247,9 +208,16 @@ public class GameView extends SurfaceView implements Runnable {
             if(fX != 0 && fY != 0) {
                 for (int i = sprites.size() - 1; i >= 0; i--) {
                     Sprite sprite = sprites.get(i);
-                    if (sprite.isCollision(getWidth() / 2 + animx, getHeight() - 60 + fireball.getHeight() / 2 + animy)) {
+//                    if (sprite.isCollision(getWidth() / 2 + animx, getHeight() - 60 + fireball.getHeight()/2 + animy)) {
                         //         if (sprite.isCollision(getWidth() / 2 + (7*animx)/8, getHeight() - 60 + fireball.getHeight() / 2 + (7*animy)/8)) {
-                        sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
+                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                            ) {
+
+
+                    sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
                         score += 10;
                         sprites.remove(sprite);
                         sprites.add(createSprite(R.drawable.bad1));
@@ -267,18 +235,17 @@ public class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-//            if(paused == false) {
-//                //draw pause bitmap
             canvas.drawBitmap(pause,getWidth()-pause.getWidth() -5, -2, null);
-//            }else {
-//                resumepauseIcon(canvas);
-//            }
+
             if(fX != 0 && fY != 0) {
                 for (int i = spritesfemale.size() - 1; i >= 0; i--) {
                     Sprite sprite = spritesfemale.get(i);
 
-                    if (sprite.isCollision(getWidth() / 2 + animx, getHeight() - 60 + fireball.getHeight() / 2 + animy)) {
-//                   if (sprite.isCollision(getWidth() / 2 + (7*animx)/8, getHeight() - 60 + fireball.getHeight() / 2 + (7*animy)/8)) {
+                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                            ) {
                         sounds.play(sndfemale, 1.0f, 1.0f, 0, 0, 1.5f);
                         score -= 5;
                         spritesfemale.remove(sprite);
@@ -299,17 +266,6 @@ public class GameView extends SurfaceView implements Runnable {
             }
         }
         if (gameover == 4) {
-    //        gameLoopThread.setPaused(true);
-            //       gameLoopThread.setRunning(false);
-//            Rect gameoverRect = new Rect();
-//            gameoverRect.set(getWidth() / 2 - 200, getHeight() / 2 - 70, getWidth() / 2 + 200, getHeight() / 2 -20);
-//            canvas.drawRect(gameoverRect, ourGreen);
-//            canvas.drawText("Game Over", getWidth()/2,getHeight()/2 - 45, textpaint);
-//
-//            Rect retryRect = new Rect();
-//            retryRect.set(getWidth() / 2 - 200, getHeight() / 2 + 70, getWidth() / 2 + 200, getHeight() / 2 + 20);
-//            canvas.drawRect(retryRect, ourGreen);
-//            canvas.drawText("Retry", getWidth()/2,getHeight()/2 + 45, textpaint);
 
             int highestscore = Splash.pref.getInt(HIGHESTSCORE, 0);
             if(highestscore < score){
@@ -348,94 +304,86 @@ public class GameView extends SurfaceView implements Runnable {
             animy = animy + dy /9;
         }
 
-        if(l1 == 3){
-            l1++;
-            thread.sleep(2000);
-        }
-
-        if(l1 == 2){
-            l1 ++;
-            String leveltext = String.valueOf(level);
-            textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
-        }
 
         if(score >= 50 && l1 == 1){
-            l1 ++;
-            level++;
-            String leveltext = String.valueOf(level);
+            leveldisplaylife --;
             textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+            textpaint.setTypeface(font);
+            textpaint.setTextSize(70);
+            if(leveldisplaylife >=0) {
+                canvas.drawText("Level  2", getWidth() / 2, getHeight() / 2, textpaint);
+            } else{
+                leveldisplaylife = 40;
+                l1 ++;
+                level ++;
+            }
         }
 
-        if(l2 == 4){
-            l2++;
-            thread.sleep(2000);
-        }
+//        if(l2 == 4){
+//            l2++;
+//            thread.sleep(200);
+//        }
+//
+//        if(l2 == 3){
+//            l2 ++;
+//            String leveltext = String.valueOf(level);
+//            textpaint.setColor(Color.RED);
+//            textpaint.setTextSize(50);
+//            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+//        }
+//
+//        if(score >= 100 && l2 == 2){
+//            l2 ++;
+//            level++;
+//            String leveltext = String.valueOf(level);
+//            textpaint.setColor(Color.RED);
+//            textpaint.setTextSize(50);
+//            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+//        }
 
-        if(l2 == 3){
-            l2 ++;
-            String leveltext = String.valueOf(level);
+        if(score >= 150 && l2 == 2){
+            leveldisplaylife --;
             textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+            textpaint.setTypeface(font);
+            textpaint.setTextSize(70);
+            if(leveldisplaylife >=0) {
+                canvas.drawText("Level  3", getWidth() / 2, getHeight() / 2, textpaint);
+            } else{
+                leveldisplaylife = 40;
+                l2 ++;
+                level ++;
+            }
         }
 
-        if(score >= 100 && l2 == 2){
-            l2 ++;
-            level++;
-            String leveltext = String.valueOf(level);
+        if(score >= 200 && l3 == 3){
+            leveldisplaylife --;
             textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+            textpaint.setTextSize(70);
+            textpaint.setTypeface(font);
+            if(leveldisplaylife >=0) {
+                canvas.drawText("Level  4", getWidth() / 2, getHeight() / 2, textpaint);
+            } else{
+                leveldisplaylife = 40;
+                l3 ++;
+                level ++;
+            }
         }
 
-        if(l3 == 5){
-            l3++;
-            thread.sleep(2000);
-        }
-
-        if(l3 == 4){
-            l3 ++;
-            String leveltext = String.valueOf(level);
+        if(score >= 250 && l4 == 4){
+            leveldisplaylife --;
             textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
-        }
-
-        if(score >= 150 && l3 == 3){
-            l3 ++;
-            level++;
-            String leveltext = String.valueOf(level);
-            textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
-        }
-
-        if(l4 == 6){
-            l4++;
-            thread.sleep(2000);
-        }
-
-        if(l4 == 5){
-            l4 ++;
-            String leveltext = String.valueOf(level);
-            textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
-        }
-
-        if(score >= 200 && l4 == 4){
-            l4 ++;
-            level++;
-            String leveltext = String.valueOf(level);
-            textpaint.setColor(Color.RED);
-            textpaint.setTextSize(50);
-            canvas.drawText(new StringBuilder().append("Level  ").append(leveltext).toString(), getWidth() / 2, getHeight()/2, textpaint);
+            textpaint.setTextSize(70);
+            textpaint.setTypeface(font);
+            if(leveldisplaylife >=0) {
+                canvas.drawText("Level  4", getWidth() / 2, getHeight() / 2, textpaint);
+            } else{
+                leveldisplaylife = 40;
+                l4 ++;
+                level ++;
+            }
         }
     }
+
 
     public void pause(){
         running = false;

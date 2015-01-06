@@ -31,10 +31,10 @@ public class Sprite {
         this.bmp = bmp;
 
         Random rnd = new Random();
-        x = rnd.nextInt(350) + 1;
-        y = rnd.nextInt(299) + 80;
-        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))/2 + 1;
-        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))/2 + 1;
+        x = rnd.nextInt(300) + 1;
+        y = rnd.nextInt(250) + 80;
+        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))*3/2 + 1;
+        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))*3/2 + 1;
         if(ySpeed == 0) {
             ySpeed = 5;
         }
@@ -60,11 +60,11 @@ public class Sprite {
         if (x >= gameView.getWidth() - width  || x  <= 0) {
             xSpeed = -xSpeed;
         }
-        x = x + speedfactor*5*xSpeed/11;
+        x = x + speedfactor*2*xSpeed/12;
         if (y >= gameView.getHeight() - height - 300 || y  <= 80) {
             ySpeed = -ySpeed;
         }
-        y = y + speedfactor*5*ySpeed/11;
+        y = y + speedfactor*2*ySpeed/13;
         currentFrame = ++currentFrame % BMP_COLUMNS;
     }
 

@@ -38,8 +38,10 @@
         android:layout_weight="10"
         android:layout_gravity="center"
         android:text="Resume"
-
-        android:textSize="27dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="italic|bold"
+        android:textColor="#E09D00"
+        android:textSize="30dp"
         android:background="@drawable/rounded_corner_button"
         />
 

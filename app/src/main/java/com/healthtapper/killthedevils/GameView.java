@@ -357,7 +357,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
         }
 
-        if(score >= 200 && l3 == 3){
+        if(score >= 250 && l3 == 3){
             leveldisplaylife --;
             textpaint.setColor(Color.RED);
             textpaint.setTextSize(70);
@@ -371,7 +371,7 @@ public class GameView extends SurfaceView implements Runnable {
             }
         }
 
-        if(score >= 250 && l4 == 4){
+        if(score >= 300 && l4 == 4){
             leveldisplaylife --;
             textpaint.setColor(Color.RED);
             textpaint.setTextSize(70);

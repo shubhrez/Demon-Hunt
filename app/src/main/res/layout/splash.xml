@@ -50,9 +50,10 @@
         android:layout_weight="10"
         android:text="Start"
         android:fontFamily="sans-serif-condensed"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:background="@drawable/rounded_corner_button"
-        android:textSize="30dp"
+        android:textSize="35dp"
+        android:textColor="#E09D00"
         />
     <TextView
         android:layout_width="fill_parent"
@@ -66,9 +67,10 @@
         android:layout_height="23dp"
         android:text="Instructions"
         android:fontFamily="sans-serif-condensed"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:layout_weight="10"
-        android:textSize="24dp"
+        android:textSize="25dp"
+        android:textColor="#E09D00"
         android:background="@drawable/rounded_corner_button"
         android:layout_gravity="center"
         />

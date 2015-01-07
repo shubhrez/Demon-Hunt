@@ -112,9 +112,10 @@
         android:background="@drawable/rounded_corner_button"
         android:text="Start Game"
         android:textSize="23dp"
-        android:layout_gravity="center"
         android:fontFamily="sans-serif-condensed"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
+        android:textColor="#E09D00"
+        android:layout_gravity="center"
         />
 
     <TextView

@@ -29,8 +29,9 @@ public class GameView extends SurfaceView implements Runnable {
     private List<Sprite> sprites = new ArrayList<Sprite>();
     private List<Sprite> spritesfemale = new ArrayList<Sprite>();
     private List<TempSprite> temps = new ArrayList<TempSprite>();
+    private List<TempSprite> temps1 = new ArrayList<TempSprite>();
     private long lastClick;
-    private Bitmap bmpBlood,fireball,fireballCover;
+    private Bitmap bmpBlood,bmpBlood1,fireball,fireballCover;
     private List<FireBallSprite> fireballsprites = new ArrayList<FireBallSprite>();
     Typeface font;
     private SoundPool sounds;
@@ -65,6 +66,7 @@ public class GameView extends SurfaceView implements Runnable {
         x = y = sX = sY = fX = fY = 0 ;
         font = Typeface.createFromAsset(context.getAssets(),"Toxia_FRE.ttf");
         bmpBlood = BitmapFactory.decodeResource(getResources(), R.drawable.blood1);
+        bmpBlood1 = BitmapFactory.decodeResource(getResources(), R.drawable.blood2);
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         sndmale = sounds.load(context,R.raw.screammale,1);
         sndfemale = sounds.load(context,R.raw.screammale,1);
@@ -173,6 +175,11 @@ public class GameView extends SurfaceView implements Runnable {
         for (int i = temps.size() - 1; i >= 0; i--) {
             temps.get(i).onDraw(canvas);
         }
+
+        for (int i = temps1.size() - 1; i >= 0; i--) {
+            temps1.get(i).onDraw(canvas);
+        }
+
         for (Sprite sprite : sprites) {
             sprite.onDraw(canvas,level);
         }
@@ -252,7 +259,7 @@ public class GameView extends SurfaceView implements Runnable {
                         score -= 5;
                         spritesfemale.remove(sprite);
                         spritesfemale.add(createSprite(R.drawable.good1));
-                        temps.add(new TempSprite(temps, this, getWidth() / 2 - fireball.getWidth() / 2 + animx, getHeight() - 30 + animy, bmpBlood));
+                        temps1.add(new TempSprite(temps1, this, getWidth() / 2 - fireball.getWidth() / 2 + animx, getHeight() - 30 + animy, bmpBlood1));
                         gameover++;
                         for (int a = fireballsprites.size() - 1; a >= 0; a--) {
                             FireBallSprite fire = fireballsprites.get(a);

@@ -28,6 +28,7 @@ public class GameView extends SurfaceView implements Runnable {
 //    private GameLoopThread gameLoopThread;
     private List<Sprite> sprites = new ArrayList<Sprite>();
     private List<Sprite> spritesfemale = new ArrayList<Sprite>();
+    private List<Life> lifes = new ArrayList<Life>();
     private List<TempSprite> temps = new ArrayList<TempSprite>();
     private List<TempSprite> temps1 = new ArrayList<TempSprite>();
     private long lastClick;
@@ -74,7 +75,7 @@ public class GameView extends SurfaceView implements Runnable {
         createMaleSprites();
         createFemaleSprites();
         createFireBallSprites();
-
+        createLifes();
     }
 
 
@@ -104,6 +105,10 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
+    private void createLifes() {
+        lifes.add(createLife(R.drawable.heart));
+    }
+
     private void createFireBallSprites(){
         fireballsprites.add(createFireBallSprite(R.drawable.fireball));
     }
@@ -111,6 +116,11 @@ public class GameView extends SurfaceView implements Runnable {
     private Sprite createSprite(int resource) {
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), resource);
         return new Sprite(this, bmp);
+    }
+
+    private Life createLife(int resource) {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), resource);
+        return new Life(this, bmp);
     }
 
     private FireBallSprite createFireBallSprite(int resource) {
@@ -187,6 +197,11 @@ public class GameView extends SurfaceView implements Runnable {
             sprite.onDraw(canvas,level);
         }
 
+        if(level == 3)
+        for (Life life : lifes) {
+            life.onDraw(canvas);
+        }
+
         canvas.drawBitmap(tower, 0, getHeight() - 80, null);
         canvas.drawBitmap(tower, getWidth()  - tower.getWidth(), getHeight() - 80, null);
 
@@ -214,19 +229,19 @@ public class GameView extends SurfaceView implements Runnable {
         canvas.drawText(new StringBuilder().append("Score : ").append(scoretext).toString(), getWidth() / 2, 50, textpaint);
 
         synchronized (getHolder()) {
-            if(fX != 0 && fY != 0) {
+            if (fX != 0 && fY != 0) {
                 for (int i = sprites.size() - 1; i >= 0; i--) {
                     Sprite sprite = sprites.get(i);
 //                    if (sprite.isCollision(getWidth() / 2 + animx, getHeight() - 60 + fireball.getHeight()/2 + animy)) {
-                        //         if (sprite.isCollision(getWidth() / 2 + (7*animx)/8, getHeight() - 60 + fireball.getHeight() / 2 + (7*animy)/8)) {
-                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                    //         if (sprite.isCollision(getWidth() / 2 + (7*animx)/8, getHeight() - 60 + fireball.getHeight() / 2 + (7*animy)/8)) {
+                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                             ) {
 
 
-                    sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
+                        sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
                         score += 10;
                         sprites.remove(sprite);
                         sprites.add(createSprite(R.drawable.bad1));
@@ -244,16 +259,16 @@ public class GameView extends SurfaceView implements Runnable {
                 }
             }
 
-            canvas.drawBitmap(pause,getWidth()-pause.getWidth() -5, -2, null);
+            canvas.drawBitmap(pause, getWidth() - pause.getWidth() - 5, -2, null);
 
-            if(fX != 0 && fY != 0) {
+            if (fX != 0 && fY != 0) {
                 for (int i = spritesfemale.size() - 1; i >= 0; i--) {
                     Sprite sprite = spritesfemale.get(i);
 
-                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy - fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
-                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth()/4, getHeight() - 60 + fireball.getHeight()/2 + animy + fireball.getHeight()/4)
+                    if (sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
+                            || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                             ) {
                         sounds.play(sndfemale, 1.0f, 1.0f, 0, 0, 1.5f);
                         score -= 5;
@@ -273,7 +288,29 @@ public class GameView extends SurfaceView implements Runnable {
 
                 }
             }
-        }
+
+
+            if(level == 3) {
+                if (fX != 0 && fY != 0){
+                    for (int i = lifes.size() - 1; i >= 0; i--) {
+                        Life life = lifes.get(i);
+                        if (life.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                                || life.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy - fireball.getHeight() / 4)
+                                || life.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
+                                || life.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
+                                ) {
+                            sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
+                            gameover -= 1;
+                            lifes.remove(life);
+                        }
+                    }
+            }
+            }
+
+            }
+
+
+
         if (gameover == 4) {
 
             int highestscore = Splash.pref.getInt(HIGHESTSCORE, 0);

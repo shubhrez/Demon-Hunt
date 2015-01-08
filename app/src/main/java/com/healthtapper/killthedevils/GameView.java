@@ -106,7 +106,7 @@ public class GameView extends SurfaceView implements Runnable {
     }
 
     private void createLifes() {
-        lifes.add(createLife(R.drawable.heart));
+        lifes.add(createLife(R.drawable.heart1));
     }
 
     private void createFireBallSprites(){
@@ -299,9 +299,18 @@ public class GameView extends SurfaceView implements Runnable {
                                 || life.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                                 || life.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                                 ) {
-                            sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
-                            gameover -= 1;
+           //                 sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
+                           if(gameover >= 1) {
+                               gameover -= 1;
+                           }
                             lifes.remove(life);
+                            for (int a = fireballsprites.size() - 1; a >= 0; a--) {
+                                FireBallSprite fire = fireballsprites.get(a);
+                                fireballsprites.remove(fire);
+                                fY = fX = 0;
+                                x = y = 0;
+                                fireballsprites.add(createFireBallSprite(R.drawable.fireball));
+                            }
                         }
                     }
             }

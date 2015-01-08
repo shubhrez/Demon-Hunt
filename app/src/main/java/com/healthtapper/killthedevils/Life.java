@@ -30,8 +30,8 @@ public class Life {
         Random rnd = new Random();
         x = rnd.nextInt(300) + 1;
         y = rnd.nextInt(250) + 80;
-        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))*3/2 + 1;
-        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10))*3/2 + 1;
+        xSpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10)) + 1;
+        ySpeed = ((rnd.nextInt(MAX_SPEED * 2) - MAX_SPEED -10)) + 1;
         if(ySpeed == 0) {
             ySpeed = 5;
         }

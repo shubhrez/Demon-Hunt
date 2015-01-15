@@ -69,7 +69,7 @@ public class GameView extends SurfaceView implements Runnable {
         bmpBlood = BitmapFactory.decodeResource(getResources(), R.drawable.blood1);
         bmpBlood1 = BitmapFactory.decodeResource(getResources(), R.drawable.blood2);
         sounds = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        sndmale = sounds.load(context,R.raw.screammale,1);
+        sndmale = sounds.load(context,R.raw.screamfemale,1);
         sndfemale = sounds.load(context,R.raw.screammale,1);
 
         createMaleSprites();
@@ -184,7 +184,7 @@ public class GameView extends SurfaceView implements Runnable {
         Paint bestText = new Paint();
         bestText.setTypeface(font);
         bestText.setARGB(100,255,255,255);
-        bestText.setTextSize(50);
+        bestText.setTextSize(40);
         canvas.drawText(new StringBuilder().append("Best  ").append(highestScore).toString(),5, 120, bestText);
 
         for (int i = temps.size() - 1; i >= 0; i--) {
@@ -246,7 +246,7 @@ public class GameView extends SurfaceView implements Runnable {
                             ) {
 
 
-                        sounds.play(sndmale, 1.0f, 1.0f, 0, 0, 1.5f);
+                        sounds.play(sndmale, 0.05f, 0.05f, 0, 0, 1.5f);
                         score += 10;
                         sprites.remove(sprite);
                         sprites.add(createSprite(R.drawable.bad1));
@@ -275,7 +275,7 @@ public class GameView extends SurfaceView implements Runnable {
                             || sprite.isCollision(getWidth() / 2 + animx + fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                             || sprite.isCollision(getWidth() / 2 + animx - fireball.getWidth() / 4, getHeight() - 60 + fireball.getHeight() / 2 + animy + fireball.getHeight() / 4)
                             ) {
-                        sounds.play(sndfemale, 1.0f, 1.0f, 0, 0, 1.5f);
+                        sounds.play(sndfemale, 0.1f, 0.1f, 0, 0, 1.5f);
                         score -= 5;
                         spritesfemale.remove(sprite);
                         spritesfemale.add(createSprite(R.drawable.good1));

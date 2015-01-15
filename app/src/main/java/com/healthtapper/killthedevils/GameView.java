@@ -180,7 +180,12 @@ public class GameView extends SurfaceView implements Runnable {
         textpaint1.setARGB(40,255,255,255);
         textpaint1.setTextSize(80);
         canvas.drawText(new StringBuilder().append("Level  ").append(leveltext1).toString(), getWidth() / 2, 300, textpaint1);
-
+        int highestScore = Splash.pref.getInt(HIGHESTSCORE, 0);
+        Paint bestText = new Paint();
+        bestText.setTypeface(font);
+        bestText.setARGB(100,255,255,255);
+        bestText.setTextSize(50);
+        canvas.drawText(new StringBuilder().append("Best  ").append(highestScore).toString(),5, 120, bestText);
 
         for (int i = temps.size() - 1; i >= 0; i--) {
             temps.get(i).onDraw(canvas);
